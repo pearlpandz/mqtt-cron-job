@@ -1,0 +1,16 @@
+{
+    "port": "8000",
+    "env": "development",
+    "mongodb": {
+        "host": "localhost",
+        "port": "27017",
+        "database": "records"
+    },
+    "live": {
+        "host": "localhost",
+        "port": "27017",
+        "database": "records",
+        "username": "localadmin",
+        "password": "SOh3TbYhx8ypJPxmt1o"
+    }
+}
