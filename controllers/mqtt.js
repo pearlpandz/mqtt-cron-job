@@ -88,18 +88,7 @@ exports.getDeviceStatus = async (req, res) => {
         if (connect.returnCode !== 0) {
             return res.json({ error: err });
         } else {
-            client.subscribe(
-                '/result/return', (err1, result1) => {
-                    if (err1) {
-                        return res.json({ err1: err1 })
-                    } else {
-                        client.publish(
-                            '/result/request',
-                            JSON.stringify({ "status": "200", "data": { "clientId": "27790", "tag": "MODBUS-/dev/ttyUSB0-1", "pointName": "B Phase", "pointId": 40147 } })
-                        );
-
-                    }
-                })
+            client.subscribe('/result/return')
         }
     })
 
