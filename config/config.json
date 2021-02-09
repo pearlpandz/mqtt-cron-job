@@ -4,13 +4,11 @@
     "mongodb": {
         "host": "localhost",
         "port": "27017",
-        "database": "records"
+        "database": "logs"
     },
     "live": {
         "host": "localhost",
         "port": "27017",
-        "database": "records",
-        "username": "localadmin",
-        "password": "SOh3TbYhx8ypJPxmt1o"
+        "database": "logs"
     }
 }
