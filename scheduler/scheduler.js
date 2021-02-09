@@ -25,7 +25,6 @@ var task = cron.schedule('* * * * *', () => {
   })
 
   client.on('message', function (topic, message) {
-    client.end()
     const out = utf8ByteArrayToString(message)
     const output = JSON.parse(out);
 
@@ -41,6 +40,8 @@ var task = cron.schedule('* * * * *', () => {
     console.log(record);
 
     record.save();
+    
+    client.end();
   })
 
 }, {
