@@ -38,6 +38,8 @@ var task = cron.schedule('* * * * *', () => {
       createdAt: moment()
     })
 
+    console.log(record);
+
     record.save();
   })
 
@@ -47,13 +49,11 @@ var task = cron.schedule('* * * * *', () => {
 
 
 exports.start = function (req, res) {
-  console.log('cron job started...');
   task.start();
   console.log(task.getStatus())
 }
 
 exports.stop = function (req, res) {
-  console.log('cron job stopped...');
   task.stop();
   console.log(task.getStatus())
   return res.send({ message: 'cron job stopped...' })
