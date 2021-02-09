@@ -82,20 +82,25 @@ exports.getDeviceStatus2 = async (req, res) => {
 
 
 exports.getDeviceStatus = async (req, res) => {
-    var client = mqtt.connect("mqtt://192.46.215.19", 1883);
+    try {
+        
+        var client = mqtt.connect("mqtt://192.46.215.19", 1883);
 
-    client.on('connect', function (connect) {
-        if (connect.returnCode !== 0) {
-            return res.json({ error: err });
-        } else {
-            client.subscribe('/result/return')
-        }
-    })
+        client.on('connect', function (connect) {
+            if (connect.returnCode !== 0) {
+                return res.json({ error: err });
+            } else {
+                client.subscribe('/result/return')
+            }
+        })
 
-    client.on('message', function (topic, message) {
-        client.end()
-        const out = utf8ByteArrayToString(message)
-        return res.json({ response: JSON.parse(out) })
-    })
-
+        client.on('message', function (topic, message) {
+            client.end()
+            const out = utf8ByteArrayToString(message)
+            return res.json({ response: JSON.parse(out) })
+        })
+    } catch (error) {
+        
+        return res.json({ error }) 
+    }
 }

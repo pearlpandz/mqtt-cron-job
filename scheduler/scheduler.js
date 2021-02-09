@@ -11,41 +11,52 @@ const RecordsSchema = require('../modals/records');
 
 
 var task = cron.schedule('* * * * *', () => {
-  console.log('cron job running');
+  try {
 
-  // cron job
-  var client = mqtt.connect("mqtt://192.46.215.19", 1883);
 
-  client.on('connect', function (connect) {
-    if (connect.returnCode !== 0) {
-      return res.json({ error: err });
-    } else {
-      client.subscribe('/result/return')
-    }
-  })
+    console.log('cron job running');
 
-  client.on('message', function (topic, message) {
-    console.log('message', message);
-    const out = utf8ByteArrayToString(message)
-    console.log('out',out);
-    const output = JSON.parse(out);
-    console.log('output',output);
+    // cron job
+    var client = mqtt.connect("mqtt://192.46.215.19", 1883);
 
-    const record = new RecordsSchema({
-      tag: output.data.tag,
-      pointName: output.data.pointName,
-      pointId: output.data.pointId,
-      propertyName: output.data.properties[0].propertyName,
-      propertyValue: output.data.properties[0].propertyValue,
-      createdAt: moment()
+    client.on('connect', function (connect) {
+      console.log(connect.returnCode);
+      if (connect.returnCode !== 0) {
+        return res.json({ error: err });
+      } else {
+        client.subscribe('/result/return')
+      }
     })
 
-    console.log('record',record);
+    client.on('message', function (topic, message) {
+      client.end();
+      console.log('message', message);
+      const out = utf8ByteArrayToString(message)
+      console.log('out', out);
+      const output = JSON.parse(out);
+      console.log('output', output);
 
-    record.save();
-    
-    client.end();
-  })
+      const record = new RecordsSchema({
+        tag: output.data.tag,
+        pointName: output.data.pointName,
+        pointId: output.data.pointId,
+        propertyName: output.data.properties[0].propertyName,
+        propertyValue: output.data.properties[0].propertyValue,
+        createdAt: moment()
+      })
+
+      console.log('record', record);
+
+      record.save().then(data => {
+        console.log(data);
+      }).catch(error => {
+        console.log(error)
+      });
+
+    })
+  } catch (error) {
+    console.log(error);
+  }
 
 }, {
   scheduled: false
