@@ -17,6 +17,7 @@ var task = cron.schedule('* * * * *', () => {
   var client = mqtt.connect("mqtt://192.46.215.19", 1883);
 
   client.on('connect', function (connect) {
+    console.log(connect.returnCode)
     if (connect.returnCode !== 0) {
       return res.json({ error: err });
     } else {
