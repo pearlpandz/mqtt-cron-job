@@ -10,6 +10,6 @@ const schema = new Schema({
     createdAt: { type: Date },
 });
 
-var RecordsSchema = mongoose.model('records', schema);
+var RecordsSchema = mongoose.model('logs', schema);
 
 module.exports = RecordsSchema;

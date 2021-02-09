@@ -4,11 +4,11 @@
     "mongodb": {
         "host": "localhost",
         "port": "27017",
-        "database": "logs"
+        "database": "records"
     },
     "live": {
         "host": "localhost",
         "port": "27017",
-        "database": "logs"
+        "database": "records"
     }
 }
