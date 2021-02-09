@@ -17,7 +17,6 @@ var task = cron.schedule('* * * * *', () => {
   var client = mqtt.connect("mqtt://192.46.215.19", 1883);
 
   client.on('connect', function (connect) {
-    console.log(connect.returnCode)
     if (connect.returnCode !== 0) {
       return res.json({ error: err });
     } else {
@@ -26,11 +25,11 @@ var task = cron.schedule('* * * * *', () => {
   })
 
   client.on('message', function (topic, message) {
-    console.log(message);
+    console.log('message', message);
     const out = utf8ByteArrayToString(message)
-    console.log(out);
+    console.log('out',out);
     const output = JSON.parse(out);
-    console.log(output);
+    console.log('output',output);
 
     const record = new RecordsSchema({
       tag: output.data.tag,
@@ -41,7 +40,7 @@ var task = cron.schedule('* * * * *', () => {
       createdAt: moment()
     })
 
-    console.log(record);
+    console.log('record',record);
 
     record.save();
     
