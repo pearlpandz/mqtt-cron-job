@@ -25,8 +25,11 @@ var task = cron.schedule('* * * * *', () => {
   })
 
   client.on('message', function (topic, message) {
+    console.log(message);
     const out = utf8ByteArrayToString(message)
+    console.log(out);
     const output = JSON.parse(out);
+    console.log(output);
 
     const record = new RecordsSchema({
       tag: output.data.tag,
