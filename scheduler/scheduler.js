@@ -12,19 +12,18 @@ const RecordsSchema = require('../modals/records');
 
 var task = cron.schedule('* * * * *', () => {
   try {
-
-
     console.log('cron job running');
 
     // cron job
     var client = mqtt.connect("mqtt://192.46.215.19", 1883);
 
     client.on('connect', function (connect) {
-      console.log(connect.returnCode);
       if (connect.returnCode !== 0) {
         return res.json({ error: err });
       } else {
-        client.subscribe('/result/return')
+        client.subscribe('/result/return', function (err, granted) {
+          console.log('Subscribed to topics: ' + JSON.stringify(granted));
+        });
       }
     })
 
@@ -59,7 +58,7 @@ var task = cron.schedule('* * * * *', () => {
   }
 
 }, {
-  scheduled: false
+  scheduled: true
 });
 
 
