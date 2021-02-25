@@ -35,13 +35,15 @@ var task = cron.schedule('* * * * *', () => {
       const output = JSON.parse(out);
       console.log('output', output);
 
+      const d = new Date();
+
       const record = new RecordsSchema({
         tag: output.data.tag,
         pointName: output.data.pointName,
         pointId: output.data.pointId,
         propertyName: output.data.properties[0].propertyName,
         propertyValue: output.data.properties[0].propertyValue,
-        createdAt: moment()
+        createdAt: d.toLocaleString()
       })
 
       console.log('record', record);

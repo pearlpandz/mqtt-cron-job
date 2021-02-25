@@ -7,7 +7,7 @@ const schema = new Schema({
     pointId: { type: Number, required: true },
     propertyName: { type: String, required: true },
     propertyValue: { type: Number, required: true },
-    createdAt: { type: Date },
+    createdAt: { type: String },
 });
 
 var RecordsSchema = mongoose.model('records', schema);
