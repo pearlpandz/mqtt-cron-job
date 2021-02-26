@@ -29,11 +29,11 @@ var task = cron.schedule('* * * * *', () => {
 
     client.on('message', function (topic, message) {
       client.end();
-      console.log('message', message);
+      // console.log('message', message);
       const out = utf8ByteArrayToString(message)
-      console.log('out', out);
+      // console.log('out', out);
       const output = JSON.parse(out);
-      console.log('output', output);
+      // console.log('output', output);
 
       const d = new Date();
 
@@ -43,10 +43,10 @@ var task = cron.schedule('* * * * *', () => {
         pointId: output.data.pointId,
         propertyName: output.data.properties[0].propertyName,
         propertyValue: output.data.properties[0].propertyValue,
-        createdAt: d.toLocaleString()
+        createdAt: moment().format('YYYY-MM-DD, hh:mm:ss')
       })
 
-      console.log('record', record);
+      // console.log('record', record);
 
       record.save().then(data => {
         console.log(data);
