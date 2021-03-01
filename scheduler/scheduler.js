@@ -43,7 +43,7 @@ var task = cron.schedule('* * * * *', () => {
         pointId: output.data.pointId,
         propertyName: output.data.properties[0].propertyName,
         propertyValue: output.data.properties[0].propertyValue,
-        createdAt: moment().format('YYYY-MM-DD, hh:mm:ss')
+        createdAt: moment().format('YYYY-MM-DD, HH:mm:ss')
       })
 
       // console.log('record', record);
